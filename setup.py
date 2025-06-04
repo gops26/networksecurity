@@ -22,7 +22,7 @@ def getrequirements()-> List[str]:
 
 
 setup(
-    name="networksecurity",
+    name="NetworkSecurity",
     description="this is my second project following krish naik's ml course ",
     author_email="kgopinath730@gmail.com",
     packages=find_packages(),
