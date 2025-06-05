@@ -1,7 +1,7 @@
 import os, sys, json
 from dotenv import load_dotenv
 import pymongo.mongo_client
-
+import ssl
 load_dotenv()
 MONGO_DB_URL = os.getenv("MONGO_DB_URL")
 
@@ -39,7 +39,7 @@ class NetworkDataExtract:
             self.collection = collection
 
             #load mongoclient 
-            self.mongoclient = pymongo.MongoClient(MONGO_DB_URL)
+            self.mongoclient = pymongo.MongoClient(MONGO_DB_URL, ssl=True)
             # find data base
             self.database = self.mongoclient[database]
             self.collection = self.database[collection]
@@ -58,6 +58,6 @@ if __name__ == "__main__":
     Collection = "NetworkData"
     networkdata = NetworkDataExtract()
     records  = networkdata.csv_to_json(FILE_PATH)
-    print(records)
+    # print(records)
     n_records = networkdata.push_to_mongo(records,DATABASE, Collection)
     print(n_records)
