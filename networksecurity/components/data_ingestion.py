@@ -37,7 +37,7 @@ class DataIngestion:
             mongo_client = pymongo.MongoClient(MONGO_DB_URL)
             collection = mongo_client[database_name][collection_name]
 
-            df = pd.DataFrame(collection.find())
+            df = pd.DataFrame(list(collection.find()))
             logging.info("data from  mongodb transferred to working environment")
             if '_id' in df.columns.tolist():
                 df.drop(columns=['_id'], axis=1)
@@ -50,9 +50,9 @@ class DataIngestion:
     def export_data_into_feature_store(self, dataframe:pd.DataFrame)->pd.DataFrame:
         try:
             feature_store_filepath = self.data_ingestion_config.feature_dir_filepath
-            dir_path = os.path.dirname(feature_store_filepath)
-            os.makedirs(dir_path, exist_ok=True)
-            dataframe.to_csv(dir_path, index=False, header=True)
+            dir_path_name = os.path.dirname(feature_store_filepath)
+            os.makedirs(dir_path_name, exist_ok=True)
+            dataframe.to_csv(feature_store_filepath, index=False, header=True)
 
             return dataframe
         except Exception as e:
