@@ -55,7 +55,7 @@ class DataValidation:
                     "p_value":float(is_same_dist.pvalue),
                     "drift_status": is_found
                     }})
-                drift_report_file_path = self.data_validation_config.drift
+                drift_report_file_path = self.data_validation_config.drift_report_file_path
 
                 dir_path = os.path.dirname(drift_report_file_path)
                 os.makedirs(dir_path, exist_ok=True)
@@ -79,16 +79,19 @@ class DataValidation:
             status = self.validate_number_of_columns(dataframe=test_dataframe)
             if not status:
                 error_message = f"test dataframe does not contain all columns" 
-
+            
+            status =self.detect_dataset_drift(train_dataframe, test_dataframe)
+            dir_path = os.path.dirname(self.data_validation_config.valid_train_file_path)
+            os.makedirs(dir_path, exist_ok=True) 
             # lets check datadrift
             train_dataframe.to_csv(
-                self.data_validation_config.valid_train_file_path
+                self.data_validation_config.valid_train_file_path,index=False, header=True
             )
             test_dataframe.to_csv(
-                self.data_validation_config.valid_test_file_path
+                self.data_validation_config.valid_test_file_path,index=False, header=True
             )
 
-            DataValidationArtifact(
+            data_validation_artifact = DataValidationArtifact(
                 validation_status=status,
                 valid_test_file_path=self.data_ingestion_artifact.trained_file_path,
                 valid_train_file_path=self.data_ingestion_artifact.test_file_path,
@@ -96,7 +99,7 @@ class DataValidation:
                 invalid_train_file_path=None,
                 drift_report_file_path=self.data_validation_config.drift_report_file_path
             )
-            return DataValidationArtifact
+            return data_validation_artifact
         
         except Exception as e:
             raise NetworkSecurityException(e, sys)

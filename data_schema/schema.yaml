@@ -15,7 +15,7 @@ columns:
 -  URL_of_Anchor: int-64
 -  Links_in_tags: int-64
 -  SFH: int-64
--  Submitting_: int-64to_email
+-  Submitting_to_email: int-64
 -  Abnormal_URL: int-64
 -  Redirect: int-64
 -  on_mouseover: int-64
@@ -28,8 +28,9 @@ columns:
 -  Page_Rank: int-64
 -  Google_Index: int-64
 -  Links_pointing_to_page: int-64
--  Statistical_report": int-64
--  "Result": int-64
+-  Statistical_report: int-64
+-  Result: int-64
+
 
 numerical_columns:
 - having_IP_Address
@@ -61,6 +62,6 @@ numerical_columns:
 -  Page_Rank
 -  Google_Index
 -  Links_pointing_to_page
--  Statistical_report"
--  "Result"
+-  Statistical_report
+-  Result
 

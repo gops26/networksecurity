@@ -39,8 +39,8 @@ class DataIngestion:
 
             df = pd.DataFrame(list(collection.find()))
             logging.info("data from  mongodb transferred to working environment")
-            if '_id' in df.columns.tolist():
-                df.drop(columns=['_id'], axis=1)
+            if "_id" in df.columns.tolist():
+                df =df.drop(columns=["_id"], axis=1)
             df.replace({"na": np.nan}, inplace=True)
             return df
         

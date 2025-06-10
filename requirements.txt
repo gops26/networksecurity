@@ -5,5 +5,5 @@ pymongo[srv]
 certifi
 scikit-learn
 PyYAML
-
+dill
 # -e .

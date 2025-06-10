@@ -36,5 +36,32 @@ DATA_VALIDATION_VALID_DIR="valid"
 DATA_VALIDATION_INVALID_DIR = 'invalid'
 DATA_VALIDATION_DRIFT_REPORT_DIR = 'drift-report'
 DATA_VALIDATION_DRIFT_REPORT_FILE_PATH ='report.yaml' 
+PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 
 
+"""
+Contains data transformation constants starting with data validation var name DATA_TRANSFORMATION_VAR_NAME
+
+"""
+DATA_TRANSFORMATION_DIR:str = 'data_transformation'
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR:str='transformed'
+DATA_TRANSFORMATION_OBJECT_DIR:str ='transformed_object' 
+
+DATA_TRANSFORMATION_IMPUTER_PARAMS:dict = {
+    "missing_values":np.nan,
+    "n_neighbors":3,
+    "weights":"uniform",
+    }
+
+DATA_TRANSFORMATION_TRAIN_FILE_PATH:str = 'train.npy'
+DATA_TRANSFORMATION_TEST_FILE_PATH:str = 'test.npy'
+
+"""
+Contains  model training constants starting with model` training var name model_training
+"""
+
+MODEL_TRAINER_DIR_NAME = "model_trianer"
+MODEL_TRAINER_TRAINED_MODEL_DIR:str = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME:str = "model.pkl"
+MODEL_TRAINER_EXPECTED_ACCURACY_SCORE:float =0.6
+MODEL_TRAINER_OVERFITTING_UNDERFITTING_THRESHOLD:float = 0.05
