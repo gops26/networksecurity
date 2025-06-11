@@ -46,10 +46,12 @@ def load_numpy_array(filepath)->np.array:
     except Exception as e:
         raise NetworkSecurityException(e, sys)
     
-def save_object(filepath:str, obj:object)-> None:
+def save_object(filepath:str, obj:object )-> None:
     try:
-        with open(filepath, 'wb') as file:
-            pickle.dump(obj=obj, file=file)
+        dirname =os.path.dirname(filepath)
+        os.makedirs(dirname,exist_ok=True)
+        with open(filepath, "wb") as fileobj:
+            pickle.dump(obj, fileobj)
     except Exception as e:
         NetworkSecurityException(e, sys)
 
@@ -63,7 +65,7 @@ def load_object(filepath)->object:
     
 
 
-def evaluate_model(X_train,y_train,X_test,y_test,models:dict, params:dict)->object:
+def evaluate_model(X_train,X_test,y_train,y_test,models:dict, params:dict)->object:
     """
     evaluates the best model from the given dict of models and dict of params
 
@@ -86,7 +88,7 @@ def evaluate_model(X_train,y_train,X_test,y_test,models:dict, params:dict)->obje
             logging.info(f"grid search cv completed for model {model_name} best params are {gs.best_params_}")
 
             model.set_params(**gs.best_params_)
-
+            model.fit(X_train, y_train)
             y_train_pred = model.predict(X_train)
             y_test_pred = model.predict(X_test)
 
