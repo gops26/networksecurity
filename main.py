@@ -6,37 +6,42 @@ from networksecurity.components.data_transformation import DataTransformation
 from networksecurity.components.model_trainer import ModelTrainer
 from networksecurity.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
 import sys
+from networksecurity.pipeline.training_pipeline import TrainingPipeline
 
 if __name__ == "__main__": 
     try:
-        logging.info("running data ingestion")
-        trainingpipelineconfig =    TrainingPipelineConfig()
+        # logging.info("running data ingestion")
+        # trainingpipelineconfig =    TrainingPipelineConfig()
 
-        dataingestionconfig=DataIngestionConfig(trainingpipelineconfig)
-        dataingestion =DataIngestion(dataingestionconfig)
-        data_ingestion_artifact = dataingestion.initiate_data_ingestion()
-        print(data_ingestion_artifact)
+        # dataingestionconfig=DataIngestionConfig(trainingpipelineconfig)
+        # dataingestion =DataIngestion(dataingestionconfig)
+        # data_ingestion_artifact = dataingestion.initiate_data_ingestion()
+        # print(data_ingestion_artifact)
 
-        logging.info("running data validations")
+        # logging.info("running data validations")
 
-        data_validation_config  = DataValidationConfig(trainingpipelineconfig)
-        data_validation= DataValidation(data_ingestion_artifact, data_validation_config)
-        data_validation_artifact = data_validation.initiate_data_validation()
-        print(data_validation_artifact)
+        # data_validation_config  = DataValidationConfig(trainingpipelineconfig)
+        # data_validation= DataValidation(data_ingestion_artifact, data_validation_config)
+        # data_validation_artifact = data_validation.initiate_data_validation()
+        # print(data_validation_artifact)
     
-        logging.info("running data transfromaion")
-        data_transformation_config = DataTransformationConfig(trainingpipelineconfig)
-        data_transformation = DataTransformation(data_validation_artifact=data_validation_artifact, data_transformation_config=data_transformation_config)
-        data_transformation_artifact = data_transformation.initiate_data_transformation()
-        print(data_transformation_artifact)
+        # logging.info("running data transfromaion")
+        # data_transformation_config = DataTransformationConfig(trainingpipelineconfig)
+        # data_transformation = DataTransformation(data_validation_artifact=data_validation_artifact, data_transformation_config=data_transformation_config)
+        # data_transformation_artifact = data_transformation.initiate_data_transformation()
+        # print(data_transformation_artifact)
 
-        # # Save 
+        # # # Save 
         
-        logging.info("running model trainer")
-        model_trainer_config = ModelTrainerConfig(training_pipeline_config=trainingpipelineconfig)
-        model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact, model_trainer_config=model_trainer_config)
-        model_trainer_artifact= model_trainer.initiate_model_trainer() 
-        print(model_trainer_artifact)
+        # logging.info("running model trainer")
+        # model_trainer_config = ModelTrainerConfig(training_pipeline_config=trainingpipelineconfig)
+        # model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact, model_trainer_config=model_trainer_config)
+        # model_trainer_artifact= model_trainer.initiate_model_trainer() 
+        # print(model_trainer_artifact)
+
+        pipeline = TrainingPipeline()
+        model_artifact= pipeline.run_pipeline()
+        print(model_artifact)
     except Exception as e:
         raise NetworkSecurityException(e, sys) 
 

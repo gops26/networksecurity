@@ -21,6 +21,8 @@ from sklearn.ensemble import (
     RandomForestClassifier 
 )
 import mlflow
+# import dagshub
+# dagshub.init(repo_owner='gops26', repo_name='networksecurity', mlflow=True)
 
 class ModelTrainer:
     def __init__(self,data_transformation_artifact:DataTransformationArtifact, model_trainer_config:ModelTrainerConfig):
@@ -93,7 +95,7 @@ class ModelTrainer:
              #training evaluation
             y_train_pred = best_model.predict(X_train)    
             classification_train_metric = get_classification_metric(y_train, y_train_pred)
-            self.track_mlflow(best_model, classification_train_metric)
+            # self.track_mlflow(best_model, classification_train_metric)
             #test evaluation
             y_test_pred = best_model.predict(X_test)    
             classification_test_metric = get_classification_metric(y_test, y_test_pred)
@@ -105,6 +107,8 @@ class ModelTrainer:
             Network_Model = NetworkModel(preprocessor=preprocessor, model=best_model)
             save_object(self.model_trainer_config.trained_model_filepath, obj=NetworkModel)
             save_object("final_model/model.pkl", best_model)
+            save_object("final_model/preprocessor.pkl", preprocessor)
+
 
 
             model_trainer_artifact = ModelTrainerArtifact(
